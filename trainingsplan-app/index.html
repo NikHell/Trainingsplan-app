@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trainingsplan-Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-4">Trainingsplan-Generator</h1>
+
+    <!-- Formular für Trainingsplan -->
+    <form id="planForm" class="space-y-4">
+      <input type="text" id="ziel" placeholder="Ziel (z.B. Muskelaufbau)" class="w-full p-2 border rounded">
+      <input type="text" id="level" placeholder="Level (Einsteiger, Fortgeschritten)" class="w-full p-2 border rounded">
+      <input type="text" id="trainingstage" placeholder="Trainingstage pro Woche (1–7)" class="w-full p-2 border rounded">
+      <input type="text" id="equipment" placeholder="Equipment (Studio, Zuhause, Bodyweight)" class="w-full p-2 border rounded">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Plan generieren</button>
+    </form>
+
+    <!-- Lade-Spinner -->
+    <div id="loader" class="hidden mt-2 text-gray-500">Generiere Plan…</div>
+
+    <!-- Ergebnisbereich -->
+    <div id="result" class="mt-6 whitespace-pre-wrap"></div>
+    <button id="exportPDF" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 mt-2">Als PDF speichern</button>
+
+    <!-- Optionaler Kalorienrechner -->
+    <div class="mt-6 p-4 border rounded bg-gray-50">
+      <h2 class="text-xl font-bold mb-2">Kalorienrechner (optional)</h2>
+      <input type="number" id="alter" placeholder="Alter (Jahre)" class="w-full p-2 border rounded mb-2">
+      <input type="number" id="gewicht" placeholder="Gewicht (kg)" class="w-full p-2 border rounded mb-2">
+      <input type="number" id="groesse" placeholder="Größe (cm)" class="w-full p-2 border rounded mb-2">
+      <select id="geschlecht" class="w-full p-2 border rounded mb-2">
+        <option value="m">Männlich</option>
+        <option value="w">Weiblich</option>
+      </select>
+      <select id="aktivitaet" class="w-full p-2 border rounded mb-2">
+        <option value="1.2">Sitzend (wenig oder keine Bewegung)</option>
+        <option value="1.375">Leicht aktiv (leichte Bewegung 1–3 Tage/Woche)</option>
+        <option value="1.55">Mäßig aktiv (moderate Bewegung 3–5 Tage/Woche)</option>
+        <option value="1.725">Sehr aktiv (intensive Bewegung 6–7 Tage/Woche)</option>
+      </select>
+      <button id="berechneKalorien" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Kalorien berechnen</button>
+      <div id="kalorienResult" class="mt-2 text-gray-700"></div>
+    </div>
+
+    <p class="text-sm text-gray-500 mt-4">
+      Die Trainingspläne dienen nur der allgemeinen Fitness-Information und ersetzen keine medizinische Beratung.
+    </p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
