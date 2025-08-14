@@ -1,0 +1,45 @@
+{
+  "exercises": [
+    { "name": "Bankdrücken (LH)", "group": "push", "equipment": ["any"] },
+    { "name": "Schrägbankdrücken (KH)", "group": "push", "equipment": ["any","home"] },
+    { "name": "Kurzhantel Schulterdrücken", "group": "push", "equipment": ["any","home"] },
+    { "name": "Überkopfdrücken (LH)", "group": "push", "equipment": ["any"] },
+    { "name": "Liegestütze", "group": "push", "equipment": ["bodyweight","home","any"] },
+    { "name": "Dips", "group": "push", "equipment": ["any","home"] },
+    { "name": "Seitheben", "group": "push", "equipment": ["any","home"] },
+
+    { "name": "Klimmzüge", "group": "pull", "equipment": ["any","home"] },
+    { "name": "Latziehen", "group": "pull", "equipment": ["any"] },
+    { "name": "Rudern (LH)", "group": "pull", "equipment": ["any"] },
+    { "name": "Rudern (KH einarmig)", "group": "pull", "equipment": ["any","home"] },
+    { "name": "Rudern am Kabel", "group": "pull", "equipment": ["any"] },
+    { "name": "Face Pulls", "group": "pull", "equipment": ["any"] },
+    { "name": "Bizepscurls (KH)", "group": "pull", "equipment": ["any","home"] },
+    { "name": "Hammercurls", "group": "pull", "equipment": ["any","home"] },
+
+    { "name": "Kniebeugen (LH)", "group": "legs", "equipment": ["any"] },
+    { "name": "Frontkniebeugen", "group": "legs", "equipment": ["any"] },
+    { "name": "Beinpresse", "group": "legs", "equipment": ["any"] },
+    { "name": "Ausfallschritte (KH)", "group": "legs", "equipment": ["any","home"] },
+    { "name": "Rumänisches Kreuzheben", "group": "legs", "equipment": ["any"] },
+    { "name": "Beinstrecker", "group": "legs", "equipment": ["any"] },
+    { "name": "Beinbeuger", "group": "legs", "equipment": ["any"] },
+    { "name": "Wadenheben stehend", "group": "legs", "equipment": ["any","home"] },
+    { "name": "Hip Thrusts", "group": "legs", "equipment": ["any","home"] },
+    { "name": "Step-ups", "group": "legs", "equipment": ["any","home"] },
+
+    { "name": "Plank", "group": "core", "equipment": ["bodyweight","home","any"] },
+    { "name": "Hängendes Beinheben", "group": "core", "equipment": ["any"] },
+    { "name": "Crunches", "group": "core", "equipment": ["bodyweight","home","any"] },
+    { "name": "Russian Twists", "group": "core", "equipment": ["any","home"] },
+    { "name": "Ab Wheel Rollouts", "group": "core", "equipment": ["any","home"] },
+    { "name": "Seitstütz", "group": "core", "equipment": ["bodyweight","home","any"] },
+
+    { "name": "Farmer's Walk", "group": "misc", "equipment": ["any","home"] },
+    { "name": "Burpees", "group": "misc", "equipment": ["bodyweight","home","any"] },
+    { "name": "Kettlebell Swings", "group": "misc", "equipment": ["any","home"] },
+    { "name": "Rumpfrotation mit Band", "group": "misc", "equipment": ["any","home"] }
+  ]
+}
+
+

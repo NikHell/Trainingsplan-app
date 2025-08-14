@@ -1,57 +1,149 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trainingsplan-Generator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Trainingsplan-Generator (offline)</title>
+    <!-- jsPDF nur für PDF-Export (optional, kann entfernt werden) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <style>
+        :root{
+            --bg:#f6f7fb; --text:#111; --card:#fff; --muted:#6b7280;
+            --primary:#2563eb; --primary-600:#1d4ed8; --green:#16a34a; --blue:#2563eb; --purple:#7c3aed;
+            --border:#e5e7eb;
+        }
+        body.dark{
+            --bg:#0f172a; --text:#e5e7eb; --card:#111827; --muted:#9ca3af;
+            --primary:#60a5fa; --primary-600:#3b82f6; --green:#22c55e; --blue:#60a5fa; --purple:#a78bfa;
+            --border:#1f2937;
+        }
+        *{box-sizing:border-box}
+        body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto; background:var(--bg); color:var(--text);}
+        .wrap{max-width:760px;margin:32px auto;padding:20px;}
+        .card{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px;}
+        h1{margin:0 0 12px}
+        .muted{color:var(--muted); font-size:14px}
+        .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+        @media (max-width:700px){ .row{grid-template-columns:1fr} }
+        label{font-size:14px; color:var(--muted)}
+        input,select,button{width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:transparent; color:inherit}
+        button{background:var(--primary); color:#fff; border:none; font-weight:600; cursor:pointer}
+        button:hover{background:var(--primary-600)}
+        .btn-ghost{background:transparent; color:var(--text); border:1px solid var(--border)}
+        .btn-success{background:var(--green); border:none}
+        .toolbar{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; margin-bottom:12px}
+        .section{margin-top:20px}
+        .badge{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid var(--border)}
+        .week{font-weight:800; color:var(--blue); margin:18px 0 6px}
+        .day{font-weight:700; color:var(--green); margin:10px 0 4px}
+        .hint{color:var(--purple); font-weight:600; margin:10px 0}
+        .list{margin:0 0 10px 18px}
+        .loader{color:var(--muted); font-size:14px}
+        .footer-note{font-size:12px; color:var(--muted); margin-top:12px}
+        .hide{display:none}
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen p-6">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-2xl font-bold mb-4">Trainingsplan-Generator</h1>
-
-    <!-- Formular für Trainingsplan -->
-    <form id="planForm" class="space-y-4">
-      <input type="text" id="ziel" placeholder="Ziel (z.B. Muskelaufbau)" class="w-full p-2 border rounded">
-      <input type="text" id="level" placeholder="Level (Einsteiger, Fortgeschritten)" class="w-full p-2 border rounded">
-      <input type="text" id="trainingstage" placeholder="Trainingstage pro Woche (1–7)" class="w-full p-2 border rounded">
-      <input type="text" id="equipment" placeholder="Equipment (Studio, Zuhause, Bodyweight)" class="w-full p-2 border rounded">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Plan generieren</button>
-    </form>
-
-    <!-- Lade-Spinner -->
-    <div id="loader" class="hidden mt-2 text-gray-500">Generiere Plan…</div>
-
-    <!-- Ergebnisbereich -->
-    <div id="result" class="mt-6 whitespace-pre-wrap"></div>
-    <button id="exportPDF" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 mt-2">Als PDF speichern</button>
-
-    <!-- Optionaler Kalorienrechner -->
-    <div class="mt-6 p-4 border rounded bg-gray-50">
-      <h2 class="text-xl font-bold mb-2">Kalorienrechner (optional)</h2>
-      <input type="number" id="alter" placeholder="Alter (Jahre)" class="w-full p-2 border rounded mb-2">
-      <input type="number" id="gewicht" placeholder="Gewicht (kg)" class="w-full p-2 border rounded mb-2">
-      <input type="number" id="groesse" placeholder="Größe (cm)" class="w-full p-2 border rounded mb-2">
-      <select id="geschlecht" class="w-full p-2 border rounded mb-2">
-        <option value="m">Männlich</option>
-        <option value="w">Weiblich</option>
-      </select>
-      <select id="aktivitaet" class="w-full p-2 border rounded mb-2">
-        <option value="1.2">Sitzend (wenig oder keine Bewegung)</option>
-        <option value="1.375">Leicht aktiv (leichte Bewegung 1–3 Tage/Woche)</option>
-        <option value="1.55">Mäßig aktiv (moderate Bewegung 3–5 Tage/Woche)</option>
-        <option value="1.725">Sehr aktiv (intensive Bewegung 6–7 Tage/Woche)</option>
-      </select>
-      <button id="berechneKalorien" type="button" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Kalorien berechnen</button>
-      <div id="kalorienResult"  class="mt-2 text-gray-700"></div>
+<body>
+<div class="wrap">
+    <div class="toolbar">
+        <button id="darkToggle" class="btn-ghost" type="button">🌙 Dark Mode</button>
     </div>
 
-    <p class="text-sm text-gray-500 mt-4">
-      Die Trainingspläne dienen nur der allgemeinen Fitness-Information und ersetzen keine medizinische Beratung.
-    </p>
-  </div>
+    <div class="card">
+        <h1>Trainingsplan-Generator (offline)</h1>
+        <p class="muted">Erstellt regelbasierte Pläne aus einer lokalen Übungs-Datenbank – ohne KI & ohne externe API.</p>
 
-  <script src="script.js"></script>
+        <!-- Formular -->
+        <form id="planForm" class="section">
+            <div class="row">
+                <div>
+                    <label>Ziel</label>
+                    <select id="ziel">
+                        <option value="muskelaufbau">Muskelaufbau</option>
+                        <option value="kraft">Kraft</option>
+                        <option value="fettabbau">Fettabbau</option>
+                        <option value="allgemein">Allgemeine Fitness</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Level</label>
+                    <select id="level">
+                        <option value="einsteiger">Einsteiger</option>
+                        <option value="fortgeschritten">Fortgeschritten</option>
+                        <option value="profi">Profi</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Trainingstage pro Woche</label>
+                    <select id="tage">
+                        <option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Plan-Typ</label>
+                    <select id="planTyp">
+                        <option value="fullbody">Ganzkörper</option>
+                        <option value="upper_lower">Upper / Lower</option>
+                        <option value="ppl">Push / Pull / Legs</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Equipment</label>
+                    <select id="equipment">
+                        <option value="any">Beliebig / Studio</option>
+                        <option value="home">Zuhause</option>
+                        <option value="bodyweight">Nur Körpergewicht</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Einheit (min)</label>
+                    <select id="dauer">
+                        <option>30</option><option selected>45</option><option>60</option><option>75</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section" style="display:flex; gap:10px; flex-wrap:wrap">
+                <button type="submit">Plan generieren</button>
+                <button type="button" id="exportPDF" class="btn-ghost">Als PDF speichern</button>
+                <span id="loader" class="loader hide">Generiere Plan…</span>
+                <span id="meta" class="badge">4 Wochen • auto Progression</span>
+            </div>
+        </form>
+
+        <!-- Ergebnis -->
+        <div id="result" class="section"></div>
+
+        <!-- Kalorienrechner -->
+        <div class="section card">
+            <h2 style="margin:0 0 10px">Kalorienrechner (Mifflin-St Jeor)</h2>
+            <div class="row">
+                <div><label>Alter</label><input type="number" id="alter" placeholder="Jahre"></div>
+                <div><label>Gewicht</label><input type="number" id="gewicht" placeholder="kg" step="0.1"></div>
+                <div><label>Größe</label><input type="number" id="groesse" placeholder="cm"></div>
+                <div>
+                    <label>Geschlecht</label>
+                    <select id="geschlecht"><option value="m">Männlich</option><option value="w">Weiblich</option></select>
+                </div>
+                <div>
+                    <label>Aktivität</label>
+                    <select id="aktivitaet">
+                        <option value="1.2">Sitzend</option>
+                        <option value="1.375">Leicht aktiv (1–3×/W)</option>
+                        <option value="1.55" selected>Mäßig aktiv (3–5×/W)</option>
+                        <option value="1.725">Sehr aktiv (6–7×/W)</option>
+                    </select>
+                </div>
+                <div style="align-self:end"><button type="button" id="berechneKalorien" class="btn-success">Kalorien berechnen</button></div>
+            </div>
+            <div id="kalorienResult" class="section muted"></div>
+        </div>
+
+        <p class="footer-note">Hinweis: Diese Inhalte ersetzen keine medizinische Beratung. Trainiere verantwortungsvoll.</p>
+    </div>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>
