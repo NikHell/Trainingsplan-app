@@ -23,6 +23,7 @@
     { "name": "Langhantelcurls", "group": "pull", "equipment": ["gym"], "type": "secondary" },
     { "name": "Reverse Flys", "group": "pull", "equipment": ["gym","home"], "type": "secondary" },
 
+    { "name": "Kniebeugen", "group": "legs", "equipment": ["bodyweight"], "type": "main" },
     { "name": "Kniebeugen (LH)", "group": "legs", "equipment": ["gym"], "type": "main" },
     { "name": "Frontkniebeugen", "group": "legs", "equipment": ["gym"], "type": "main" },
     { "name": "Beinpresse", "group": "legs", "equipment": ["gym"], "type": "main" },
@@ -47,6 +48,7 @@
     { "name": "Farmer's Walk", "group": "misc", "equipment": ["gym","home"], "type": "main" },
     { "name": "Burpees", "group": "misc", "equipment": ["bodyweight","home","gym"], "type": "main" },
     { "name": "Kettlebell Swings", "group": "misc", "equipment": ["gym","home"], "type": "main" },
-    { "name": "Rumpfrotation mit Band", "group": "misc", "equipment": ["gym","home"], "type": "secondary" }
+    { "name": "Rumpfrotation mit Band", "group": "misc", "equipment": ["gym","home"], "type": "secondary" },
+    { "name": "Superman", "group": "misc", "equipment": ["bodyweight"], "type": "secondary" }
   ]
 }
