@@ -121,6 +121,15 @@ export class PlanGenerator {
         return exList;
     }
 
+    pickByGroup(group, equipment) {
+        const list = this.DB.exercises.filter(x =>
+            x.group === group &&
+            (equipment === 'bodyweight' ? x.equipment.includes('bodyweight') :
+                x.equipment.includes(equipment) || x.equipment.includes('any'))
+        );
+        return list;
+    }
+
     setsRepsByLevel(level, ziel) {
         const map = {
             einsteiger: { sets: 3, reps: "8–12", rest: "60–90s" },
@@ -157,14 +166,6 @@ export class PlanGenerator {
             out.push(copy.splice(i, 1)[0]);
         }
         return out;
-    }
-
-    pickByGroup(group, equipment) {
-        const list = this.DB.exercises.filter(x =>
-            x.group === group &&
-            (equipment === 'any' || x.equipment.includes(equipment) || x.equipment.includes('any'))
-        );
-        return list;
     }
 
     groupBy(array, key) {
