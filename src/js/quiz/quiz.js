@@ -57,10 +57,10 @@ export class FitnessQuiz {
       ${q.options
         .map(
           (opt, idx) => `
-          <label class="block mb-2">
-            <input type="radio" name="answer" value="${opt}" class="mr-2">
-            ${opt}
-          </label>
+          <div class="row">
+              <span class="value">${opt}</span>
+              <input type="checkbox" name="answer" value="${opt}" class="mr-2"> 
+          </div>
         `
         )
         .join("")}
