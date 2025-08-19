@@ -7,6 +7,7 @@
     <!-- jsPDF nur für PDF-Export (optional, kann entfernt werden) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetch('./src/modules/quiz/quiz.html')
@@ -38,9 +39,37 @@
         <button id="darkToggle" class="btn-ghost" type="button">🌙 Dark Mode</button>
     </div>
 
-    <div id="fitnessQuiz"></div>
-    <div id="calorienRechner"></div>
-    <div id="planGenerator"></div>
+    <!-- Fortschrittsanzeige -->
+    <div class="mb-8">
+        <div class="w-full bg-gray-700 rounded-full h-3">
+            <div id="progress-bar" class="bg-blue-500 h-3 rounded-full w-1/3 transition-all duration-500"></div>
+        </div>
+        <p id="progress-text" class="text-sm mt-2 ">Schritt 1 von 3</p>
+    </div>
+
+    <!-- Module -->
+    <div id="modules" class="space-y-6">
+
+        <!-- Modul 1 -->
+            <div class="module p-6 rounded-lg shadow-md" data-module="1">
+            <h2 class="text-xl font-bold mb-2">1️⃣ Quiz</h2>
+            <p class="mb-4">Beantworte ein paar Fragen, um dein Level zu bestimmen.</p>
+            <div id="fitnessQuiz"></div>
+        </div>
+
+        <!-- Modul 2 -->
+        <div class="module p-6 rounded-lg shadow-md hidden" data-module="3">
+            <h2 class="text-xl font-bold mb-2">3️⃣ Kalorienrechner</h2>
+            <p class="mb-4">Berechne deinen Kalorienbedarf.</p>
+            <div id="calorienRechner"></div>
+        </div>
+
+        <!-- Modul 2 -->
+        <div class="module  p-6 rounded-lg shadow-md hidden" data-module="2">
+            <h2 class="text-xl font-bold mb-2">2️⃣ Trainingsplan</h2>
+            <p class="mb-4">Hier wird dein persönlicher Plan erstellt.</p>
+            <div id="planGenerator"></div>
+        </div>
 
     <p class="footer-note">Hinweis: Diese Inhalte ersetzen keine medizinische Beratung. Trainiere
         verantwortungsvoll.</p>

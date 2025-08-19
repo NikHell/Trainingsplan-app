@@ -1,5 +1,5 @@
 export class FitnessQuiz {
-  constructor(containerId, nextBtnId, resultId) {
+  constructor(containerId, nextQuizQuestionBtnId, resultId) {
     this.quizData = [
       {
         question: "Was ist dein Hauptziel?",
@@ -23,7 +23,7 @@ export class FitnessQuiz {
     this.answers = [];
 
     this.quizContainer = document.getElementById(containerId);
-    this.nextBtn = document.getElementById(nextBtnId);
+    this.nextQuizQuestionBtnId = document.getElementById(nextQuizQuestionBtnId);
     this.resultDiv = document.getElementById(resultId);
 
     this.init();
@@ -32,7 +32,7 @@ export class FitnessQuiz {
   init() {
     this.showQuestion();
 
-    this.nextBtn.addEventListener("click", () => {
+    this.nextQuizQuestionBtnId.addEventListener("click", () => {
       const selected = document.querySelector("input[name='answer']:checked");
       if (!selected) {
         alert("Bitte eine Antwort auswählen!");
@@ -86,6 +86,6 @@ export class FitnessQuiz {
     this.resultDiv.innerHTML = summary;
     this.resultDiv.classList.remove("hidden");
     this.quizContainer.classList.add("hidden");
-    this.nextBtn.classList.add("hidden");
+    this.nextQuizQuestionBtnId.classList.add("hidden");
   }
 }
