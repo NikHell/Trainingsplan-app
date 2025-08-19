@@ -7,6 +7,16 @@
     <!-- jsPDF nur für PDF-Export (optional, kann entfernt werden) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('./src/js/quiz/quiz.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('fitnessQuiz').innerHTML = data;
+                })
+                .catch(error => console.error('Fehler beim Laden:', error));
+        });
+    </script>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,6 +25,8 @@
     <div class="toolbar">
         <button id="darkToggle" class="btn-ghost" type="button">🌙 Dark Mode</button>
     </div>
+
+    <div id="fitnessQuiz"></div>
 
     <div class="card">
         <h1>Trainingsplan-Generator (offline)</h1>
