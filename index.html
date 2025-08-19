@@ -2,131 +2,87 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Trainingsplan-Generator (offline)</title>
-    <!-- jsPDF nur für PDF-Export (optional, kann entfernt werden) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch('./src/js/quiz/quiz.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('fitnessQuiz').innerHTML = data;
-                })
-                .catch(error => console.error('Fehler beim Laden:', error));
-        });
-    </script>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dein persönliches Fitnesskonzept</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div class="wrap">
-    <div class="toolbar">
-        <button id="darkToggle" class="btn-ghost" type="button">🌙 Dark Mode</button>
+<body class="bg-gray-100 text-gray-800">
+
+<!-- Hero Section -->
+<section class="bg-white">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-6 py-12">
+        <!-- Text -->
+        <div class="flex-1">
+            <h1 class="text-4xl font-bold mb-4">
+                Erstelle dein persönliches <span class="text-blue-600">Fitnesskonzept</span>
+            </h1>
+            <p class="mb-6 text-lg">
+                Individuell. Einfach. Kostenlos.<br>
+                Dein Trainings- & Ernährungsplan in nur 5 Minuten.
+            </p>
+            <a href="modulIntegration.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold">
+                🚀 Jetzt starten
+            </a>
+        </div>
+        <!-- Hero Image -->
+        <div class="flex-1 mt-8 md:mt-0 md:ml-8">
+            <img src="https://source.unsplash.com/600x400/?fitness,training" alt="Motivierendes Training" class="rounded-lg shadow-lg">
+        </div>
     </div>
+</section>
 
-    <div id="fitnessQuiz"></div>
-
-    <div class="card">
-        <h1>Trainingsplan-Generator (offline)</h1>
-        <p class="muted">Erstellt regelbasierte Pläne aus einer lokalen Übungs-Datenbank – ohne KI & ohne externe API.</p>
-
-        <!-- Formular -->
-        <form id="planForm" class="section">
-            <div class="row">
-                <div>
-                    <label>Ziel</label>
-                    <select id="ziel">
-                        <option value="muskelaufbau">Muskelaufbau</option>
-                        <option value="kraft">Kraft</option>
-                        <option value="fettabbau">Fettabbau</option>
-                        <option value="allgemein">Allgemeine Fitness</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Level</label>
-                    <select id="level">
-                        <option value="einsteiger">Einsteiger</option>
-                        <option value="fortgeschritten">Fortgeschritten</option>
-                        <option value="profi">Profi</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Trainingstage pro Woche</label>
-                    <select id="tage">
-                        <option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Plan-Typ</label>
-                    <select id="planTyp">
-                        <option value="fullbody">Ganzkörper</option>
-                        <option value="upper_lower">Upper / Lower</option>
-                        <option value="ppl">Push / Pull / Legs</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Equipment</label>
-                    <select id="equipment">
-                        <option value="any">Beliebig / Studio</option>
-                        <option value="home">Zuhause</option>
-                        <option value="bodyweight">Nur Körpergewicht</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Einheit (min)</label>
-                    <select id="dauer">
-                        <option>30</option><option selected>45</option><option>60</option><option>75</option>
-                    </select>
-                </div>
+<!-- Vorteile Section -->
+<section class="bg-gray-50 py-12">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-semibold mb-8">Warum dein persönliches Konzept?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <img src="https://source.unsplash.com/100x100/?plan,workout" class="mx-auto mb-4 rounded-full" alt="Plan">
+                <h3 class="font-bold text-xl">Individueller Plan</h3>
+                <p>Keine Standardlösungen – dein Training passt zu dir.</p>
             </div>
-
-            <div class="section" style="display:flex; gap:10px; flex-wrap:wrap">
-                <button type="submit">Plan generieren</button>
-                <button type="button" id="exportPDF" class="btn-ghost">Als PDF speichern</button>
-                <span id="loader" class="loader hide">Generiere Plan…</span>
-                <span id="meta" class="badge">4 Wochen • auto Progression</span>
+            <div>
+                <img src="https://source.unsplash.com/100x100/?healthy,food" class="mx-auto mb-4 rounded-full" alt="Ernährung">
+                <h3 class="font-bold text-xl">Kalorien & Ernährung</h3>
+                <p>Errechne einfach deinen Bedarf und erhalte Rezepte.</p>
             </div>
-        </form>
-
-        <!-- Ergebnis Section mit eigenem Card Style -->
-        <div id="result" class="section card">
-            <h2 style="margin:0 0 10px">Trainingsplanvorschau</h2>
-            <div class="plan-preview">
-                <!-- Bereich für dynamischen Inhalt -->
+            <div>
+                <img src="https://source.unsplash.com/100x100/?pdf,document" class="mx-auto mb-4 rounded-full" alt="PDF">
+                <h3 class="font-bold text-xl">Alles als PDF</h3>
+                <p>Dein Konzept immer dabei – übersichtlich und praktisch.</p>
             </div>
         </div>
-
-        <!-- Kalorienrechner -->
-        <div class="section card">
-            <h2 style="margin:0 0 10px">Kalorienrechner (Mifflin-St Jeor)</h2>
-            <div class="row">
-                <div><label>Alter</label><input type="number" id="alter" placeholder="Jahre"></div>
-                <div><label>Gewicht</label><input type="number" id="gewicht" placeholder="kg" step="0.1"></div>
-                <div><label>Größe</label><input type="number" id="groesse" placeholder="cm"></div>
-                <div>
-                    <label>Geschlecht</label>
-                    <select id="geschlecht"><option value="m">Männlich</option><option value="w">Weiblich</option></select>
-                </div>
-                <div>
-                    <label>Aktivität</label>
-                    <select id="aktivitaet">
-                        <option value="1.2">Sitzend</option>
-                        <option value="1.375">Leicht aktiv (1–3×/W)</option>
-                        <option value="1.55" selected>Mäßig aktiv (3–5×/W)</option>
-                        <option value="1.725">Sehr aktiv (6–7×/W)</option>
-                    </select>
-                </div>
-                <div style="align-self:end"><button type="button" id="berechneKalorien" class="btn-success">Kalorien berechnen</button></div>
-            </div>
-            <div id="kalorienResult" class="section muted"></div>
-        </div>
-
-        <p class="footer-note">Hinweis: Diese Inhalte ersetzen keine medizinische Beratung. Trainiere verantwortungsvoll.</p>
     </div>
-</div>
+</section>
 
-<script type="module" src="./src/js/main.js" defer></script>
+<!-- Vorschau Section -->
+<section class="bg-white py-12">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-6">
+        <div class="flex-1 mb-8 md:mb-0">
+            <img src="https://source.unsplash.com/400x600/?mobile,app" alt="PDF Vorschau" class="rounded-lg shadow-md mx-auto">
+        </div>
+        <div class="flex-1 md:ml-12">
+            <h2 class="text-3xl font-semibold mb-4">Dein Ergebnis – sofort umsetzbar</h2>
+            <p class="mb-6">
+                Klar strukturiert. Trainingsplan, Kalorienbedarf und Ernährung in einem Dokument.
+                Alles modular aufgebaut, sodass du genau das bekommst, was dir wichtig ist.
+            </p>
+            <a href="modulIntegration.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold">
+                Starte dein Quiz
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-blue-600 py-12 text-center text-white">
+    <h2 class="text-3xl font-bold mb-4">Bereit für dein persönliches Fitnesskonzept?</h2>
+    <p class="mb-6 text-lg">Beantworte ein paar Fragen und starte sofort.</p>
+    <a href="modulIntegration.html" class="bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg text-lg shadow hover:bg-gray-200">
+        Quiz starten
+    </a>
+</section>
+
 </body>
 </html>

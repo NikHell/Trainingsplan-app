@@ -1,0 +1,77 @@
+<div class="section card">
+    <h1>Trainingsplan-Generator (offline)</h1>
+    <p class="muted">Erstellt regelbasierte Pläne aus einer lokalen Übungs-Datenbank – ohne KI & ohne externe API.</p>
+
+    <!-- Formular -->
+    <form id="planForm" class="section">
+        <div class="row">
+            <div>
+                <label>Ziel</label>
+                <select id="ziel">
+                    <option value="muskelaufbau">Muskelaufbau</option>
+                    <option value="kraft">Kraft</option>
+                    <option value="fettabbau">Fettabbau</option>
+                    <option value="allgemein">Allgemeine Fitness</option>
+                </select>
+            </div>
+            <div>
+                <label>Level</label>
+                <select id="level">
+                    <option value="einsteiger">Einsteiger</option>
+                    <option value="fortgeschritten">Fortgeschritten</option>
+                    <option value="profi">Profi</option>
+                </select>
+            </div>
+            <div>
+                <label>Trainingstage pro Woche</label>
+                <select id="tage">
+                    <option>2</option>
+                    <option selected>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                </select>
+            </div>
+            <div>
+                <label>Plan-Typ</label>
+                <select id="planTyp">
+                    <option value="fullbody">Ganzkörper</option>
+                    <option value="upper_lower">Upper / Lower</option>
+                    <option value="ppl">Push / Pull / Legs</option>
+                </select>
+            </div>
+            <div>
+                <label>Equipment</label>
+                <select id="equipment">
+                    <option value="any">Beliebig / Studio</option>
+                    <option value="home">Zuhause</option>
+                    <option value="bodyweight">Nur Körpergewicht</option>
+                </select>
+            </div>
+            <div>
+                <label>Einheit (min)</label>
+                <select id="dauer">
+                    <option>30</option>
+                    <option selected>45</option>
+                    <option>60</option>
+                    <option>75</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section" style="display:flex; gap:10px; flex-wrap:wrap">
+            <button type="submit">Plan generieren</button>
+            <button type="button" id="exportPDF" class="btn-ghost">Als PDF speichern</button>
+            <span id="loader" class="loader hide">Generiere Plan…</span>
+            <span id="meta" class="badge">4 Wochen • auto Progression</span>
+        </div>
+    </form>
+
+    <!-- Ergebnis Section mit eigenem Card Style -->
+    <div id="result" class="section card">
+        <h2 style="margin:0 0 10px">Trainingsplanvorschau</h2>
+        <div class="plan-preview">
+            <!-- Bereich für dynamischen Inhalt -->
+        </div>
+    </div>
+</div>

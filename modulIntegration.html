@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Trainingsplan-Generator (offline)</title>
+    <!-- jsPDF nur für PDF-Export (optional, kann entfernt werden) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('./src/modules/quiz/quiz.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('fitnessQuiz').innerHTML = data;
+                })
+                .catch(error => console.error('Fehler beim Laden:', error));
+            fetch('./src/modules/calorieCalculator/calorieCalculator.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('calorienRechner').innerHTML = data;
+                })
+                .catch(error => console.error('Fehler beim Laden:', error));
+            fetch('./src/modules/planGenerator/planGenerator.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('planGenerator').innerHTML = data;
+                })
+                .catch(error => console.error('Fehler beim Laden:', error));
+        });
+    </script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="toolbar">
+        <button id="darkToggle" class="btn-ghost" type="button">🌙 Dark Mode</button>
+    </div>
+
+    <div id="fitnessQuiz"></div>
+    <div id="calorienRechner"></div>
+    <div id="planGenerator"></div>
+
+    <p class="footer-note">Hinweis: Diese Inhalte ersetzen keine medizinische Beratung. Trainiere
+        verantwortungsvoll.</p>
+</div>
+<script type="module" src="src/modules/main.js" defer></script>
+</body>
+</html>
