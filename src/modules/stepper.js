@@ -9,9 +9,6 @@ export class Stepper {
         let currentStep = 1;
         const totalSteps = modules.length;
 
-        console.log('Hello');
-        console.log('nextButtonsIds',nextButtons    );
-
         function updateProgress(step) {
             const percent = (step / totalSteps) * 100;
             progressBar.style.width = percent + "%";
