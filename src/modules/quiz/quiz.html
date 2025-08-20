@@ -1,6 +1,8 @@
-<div class="section card">
+<div>
+    <h2 class="text-xl font-bold mb-2">1️⃣ Fitness-Quiz</h2>
+    <p class="mb-4">Beantworte ein paar Fragen, um dein Level zu bestimmen.</p>
+    <div class="section card">
         <div>
-            <h1 class="text-2xl font-bold mb-4 text-center">Fitness-Quiz</h1>
             <div id="quiz"></div>
             <div class="section" style="display:flex; gap:10px; flex-wrap:wrap">
                 <div class="mt-6 text-center">
@@ -9,6 +11,12 @@
                     </button>
                 </div>
             </div>
-            <div id="result" class="mt-6 hidden p-4 border rounded bg-gray-50"></div>
+            <div id="result" class="hidden p-4"></div>
+            <div class="mt-6 text-center">
+                <button type="submit" id="nextBtn"
+                        class="nextBtn bg-blue-500 hidden text-white px-4 py-2 rounded hover:bg-blue-600">Weiter
+                </button>
+            </div>
         </div>
+    </div>
 </div>

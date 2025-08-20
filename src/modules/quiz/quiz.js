@@ -25,6 +25,7 @@ export class FitnessQuiz {
     this.quizContainer = document.getElementById(containerId);
     this.nextQuizQuestionBtnId = document.getElementById(nextQuizQuestionBtnId);
     this.resultDiv = document.getElementById(resultId);
+    this.nextBtn = document.getElementById('nextBtn');
 
     this.init();
   }
@@ -70,9 +71,10 @@ export class FitnessQuiz {
   showResult() {
     let summary = `
       <h2 class="text-xl font-bold mb-2">Deine Ergebnisse</h2>
-      <ul class="list-disc pl-5 text-gray-700 mb-4">
+      <ul class="list-disc pl-5 mb-4">
         ${this.answers.map((a, i) => `<li><strong>${this.quizData[i].question}</strong>: ${a}</li>`).join("")}
       </ul>
+      </button>
     `;
 
     // Einfache Logik für Motivation
@@ -83,8 +85,10 @@ export class FitnessQuiz {
       summary += `<p class="text-blue-600 font-semibold">Starke Leistung! Dein Plan wird dich weiter fordern.</p>`;
     }
 
+
     this.resultDiv.innerHTML = summary;
     this.resultDiv.classList.remove("hidden");
+    this.nextBtn.classList.remove("hidden");
     this.quizContainer.classList.add("hidden");
     this.nextQuizQuestionBtnId.classList.add("hidden");
   }

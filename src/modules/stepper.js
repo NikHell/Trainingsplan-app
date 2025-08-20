@@ -1,5 +1,6 @@
 export class Stepper {
     constructor(modulesIds, nextButtonsIds, progressBarId, progressTextId) {
+
         const modules = document.querySelectorAll(modulesIds);
         const nextButtons = document.querySelectorAll(nextButtonsIds);
         const progressBar = document.getElementById(progressBarId);
@@ -7,6 +8,9 @@ export class Stepper {
 
         let currentStep = 1;
         const totalSteps = modules.length;
+
+        console.log('Hello');
+        console.log('nextButtonsIds',nextButtons    );
 
         function updateProgress(step) {
             const percent = (step / totalSteps) * 100;
@@ -16,6 +20,7 @@ export class Stepper {
 
         nextButtons.forEach(btn => {
             btn.addEventListener("click", () => {
+                console.log("nextBtn clicked");
                 const currentModule = btn.closest(".module");
                 const currentIndex = parseInt(currentModule.dataset.module);
 
